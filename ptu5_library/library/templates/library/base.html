@@ -5,13 +5,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %} Library{%endblock title %}</title>
+    <title>{% block title %} Library{% endblock title %}</title>
     <link rel="stylesheet" href="{% static 'library/css/base.css' %}">
 </head>
- <body>
+<body>
+    <header>
+        {% comment %} meniukas {% endcomment %}
+        <div class="container">
+            {% block nav %}
+                <a href="{% url 'index' %}">Home</a>
+                <a href="{% url 'admin:index' %}">Admin</a>
+            {% endblock nav %}
+        </div>
+    </header>
     <main>
-        {% block content %}
-        {% endblock content %}
+        <div class="container">
+            {% block content %}
+            {% endblock content %}
+        </div>
     </main>
+    <footer>
+        <div class="container">
+            {% block footer %}<p>(C) 2022 PTU5</p>{% endblock footer %}
+        </div>
+    </footer>
 </body>
 </html>
