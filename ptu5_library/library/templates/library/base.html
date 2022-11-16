@@ -19,6 +19,7 @@
                 <span class="spacer"></span>
                 {% if user.is_authenticated %}
                     <span>{{ user }}</span>
+                    <a href="{% url 'user_books' %}">My Books</a>
                     {% if user.is_superuser or user.is_staff %}
                     <a href="{% url 'admin:index' %}">Admin</a>
                     {% endif %}

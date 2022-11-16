@@ -1,0 +1,15 @@
+{% extends 'library/base.html' %}
+{% block title %}My Books in {{ block.super }}{% endblock title %}
+{% block content %}
+<h1>My Books</h1>
+<div class="table-grid my-books-table">
+    <div class="table-grid-cell center dark">Author - Book</div>
+    <div class="table-grid-cell center dark">Due Date</div>
+    <div class="table-grid-cell center dark">Status</div>
+    {% for book_instance in bookinstance_list %}
+        <div class="table-grid-cell">{{ book_instance.book }}</div>
+        <div class="table-grid-cell center{% if book_instance.is_overdue %} overdue{% endif %}">{{ book_instance.due_back }}</div>
+        <div class="table-grid-cell center{% if book_instance.is_overdue %} overdue{% endif %}">{{ book_instance.get_status_display }}</div>
+    {% endfor %}
+</div>
+{% endblock content %}
