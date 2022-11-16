@@ -1,0 +1,39 @@
+{% extends 'library/base.html' %}
+{% block title %}Login to {{ block.super }}{% endblock title %}
+{% block content %}
+<h1>Login to Library</h1>
+
+{% if form.errors %}
+    <p class="form-error">Login error, please try again.</p>
+{% endif %}
+
+{% if next %}
+    {% if user.is_authenticated %}
+        <p class="form-error">Permission error. You need a permission to see this page.</p>
+    {% endif %}
+{% endif %}
+
+<form method="post" action="{% url 'login' %}">
+{% csrf_token %}
+<table>
+    <tr>
+        <td>Username</td>
+        <td>{{ form.username }}</td>
+    </tr>
+    <tr>
+        <td>Password</td>
+        <td>{{ form.password }}</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <input type="submit" value="Login">
+            <input type="hidden" name="next" value="{{ next }}">
+        </td>
+    </tr>
+</table>
+</form>
+
+<p><a href="{% url 'password_reset' %}">Forgot password?</a></p>
+
+{% endblock content %}
