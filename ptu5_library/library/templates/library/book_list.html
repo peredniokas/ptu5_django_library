@@ -1,0 +1,46 @@
+{% extends 'library/base.html' %}
+{% load static %}
+{% block title %}Books in {{ block.super }}{% endblock title %}
+{% block content %}
+    <h1>{{ books_count }} 
+        {% if genre %}{{ genre }}{% endif %}
+        Books</h1>
+    <div class="paginator">
+        {% if page_obj.has_previous %}
+            <a href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}page=1">&#11120;</a>
+            <a href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}page={{ page_obj.previous_page_number }}">&#129120;</a>
+        {% endif %}
+        {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+        {% if page_obj.has_next %}
+            <a href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}page={{ page_obj.next_page_number }}">&#129122;</a>
+            <a href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}page={{ page_obj.paginator.num_pages }}">&#11122;</a>
+        {% endif %}
+        <form action="{% url 'books' %}" method="get">
+            <input type="text" name="search" value="{{ request.GET.search }}">
+            <button type="submit">search</button>
+        </form>
+    </div>
+    <div class="genre_filter">
+        <h3>Available Genres</h3>
+        <ul>
+            {% for filter_genre in genres %}
+                <li class="{% if filter_genre == genre %}current{% endif %}">{{ filter_genre.link_filtered_books }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <ul class="book_list">
+        {% for book in book_list %}
+            <li class="book">
+                <a href="{% url 'book' book.pk %}">
+                    {% if book.cover %}
+                        <img src="{{ book.cover.url }}">
+                    {% else %}
+                        <img src="{% static 'library/img/news3-1.jpg' %}">
+                    {% endif %}
+                    <h3>{{ book.title }}</h3>
+                </a>
+                <p>by {{ book.author.link }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock content %}

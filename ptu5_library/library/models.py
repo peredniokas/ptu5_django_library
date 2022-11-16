@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils.html import format_html
+from django.urls import reverse
 import uuid
 
 
@@ -7,6 +9,10 @@ class Genre(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+    def link_filtered_books(self):
+        link = reverse('books')+'?genre_id='+str(self.id)
+        return format_html('<a class="genre" href="{link}">{name}</a>', link=link, name=self.name)
 
 
 class Author(models.Model):
@@ -19,6 +25,10 @@ class Author(models.Model):
     def display_books(self) -> str:
         return ', '.join(book.title for book in self.books.all())
     display_books.short_description = 'books'
+
+    def link(self) -> str:
+        link = reverse('author', kwargs={'author_id':self.id})
+        return format_html('<a href="{link}">{author}</a>', link=link, author=self.__str__())
 
     class Meta:
         ordering = ['last_name', 'first_name']
@@ -37,6 +47,7 @@ class Book(models.Model):
         related_name='books',
     )
     genre = models.ManyToManyField(Genre, help_text='Choose genre(s) for this book', verbose_name='genre(s)')
+    cover = models.ImageField("cover", upload_to='covers', blank=True, null=True)
 
     def __str__(self) -> str:
         return f"{self.author} - {self.title}"

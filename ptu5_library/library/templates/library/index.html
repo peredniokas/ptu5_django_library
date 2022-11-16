@@ -1,12 +1,13 @@
 {% extends 'library/base.html' %}
-{% block title %}Welcome to {{ block.super}}{% endblock title%}
+{% block title %}Welcome to {{ block.super }}{% endblock title %}
 {% block content %}
-<h>PTu5 Library</h1>
-    <ul>
-        <li>Total books: {{ book_count}}</li>
-        <li>Total book copies: {{ book_instances_count}}</li>
-        <li>Available book copies: {{ book_instance_available_count}}</li>
-        <li>Distinct authors: {{ author_count}}</li>
-        <li>Genres: {{ genre_count }}</li>
-    </ul>
+<h1>PTU5 Library</h1>
+<ul>
+    <li>Total books: {{ book_count }}</li>
+    <li>Total book copies: {{ book_instance_count }}</li>
+    <li>Available book copies: {{ book_instance_available_count }}</li>
+    <li>Distinct authors: {{ author_count }}</li>
+    <li>Genres: {{ genre_count }}</li>
+    <li>Visits this session: {{ visits_count }}</li>
+</ul>
 {% endblock content %}

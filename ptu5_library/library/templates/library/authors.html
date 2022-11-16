@@ -1,0 +1,22 @@
+{% extends 'library/base.html' %}
+{% block title %}Authors in {{ block.super }}{% endblock title %}
+{% block content %}
+    <h1>Authors</h1>
+    <div class="paginator">
+        {% if authors.has_other_pages %}
+            {% for page_number in authors.paginator.page_range %}
+                {% if page_number == authors.number %}
+                    <span>{{ page_number }}</span>
+                {% else %}
+                    <a href="?page={{ page_number }}">{{ page_number }}</a>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+    <ul>
+        {% for author in authors %}
+            <li><a href="{% url 'author' author.id %}">{{ author.last_name }}, {{ author.first_name }}</a></li>
+        {% endfor %}
+    </ul>
+    {# authors #}
+{% endblock content %}
