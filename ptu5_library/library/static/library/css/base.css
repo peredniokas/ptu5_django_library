@@ -221,3 +221,22 @@ table {
     color: #070;
     border-color: #070;
 }
+
+.float-right {
+    float: right;
+}
+
+.book-review h4 {
+    display: block;
+    padding: 0.5rem 1rem;
+    margin: 0;
+}
+
+.review-form label {
+    display: none;
+}
+
+.review-form {
+    background-color: rgba(255, 204, 168, 0.3);
+    border-bottom: 3px solid #ccc;
+}

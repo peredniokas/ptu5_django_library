@@ -33,5 +33,4 @@ def register(request):
             User.objects.create_user(username=username, email=email, password=password)
             messages.success(request, f'User {username} registration successful. You can log in now.')
             return redirect('login')
-        
     return render(request, 'user_profile/register.html')

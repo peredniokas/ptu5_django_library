@@ -16,4 +16,24 @@
     <div class="summary">
         {{ object.summary|safe }}
     </div>
+    <h2>Reviews</h2>
+    {% if user.is_authenticated %}
+        <div class="review-form">
+            <p>If you have read this book, please leave a review.</p>
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <p><button type="submit">Post Review</button></p>
+            </form>
+        </div>
+    {% endif %}
+    {% if book.reviews %}
+        {% for review in book.reviews.all %}
+            <div class="book-review">
+                <h4>{{ review.reader }}
+                    <span class="float-right">{{ review.created_at }}</span></h4>
+                <p>{{ review.content }}</p>
+            </div>
+        {% endfor %}
+    {% endif %}
 {% endblock content %}
