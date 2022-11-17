@@ -21,10 +21,11 @@
                     <span>{{ user }}</span>
                     <a href="{% url 'user_books' %}">My Books</a>
                     {% if user.is_superuser or user.is_staff %}
-                    <a href="{% url 'admin:index' %}">Admin</a>
+                        <a href="{% url 'admin:index' %}">Admin</a>
                     {% endif %}
                     <a href="{% url 'logout' %}">Logout</a>
                 {% else %}
+                    <a href="{% url 'register' %}">Register</a>
                     <a href="{% url 'login' %}{% if not '/accounts/' in request.path %}?next={{ request.path }}{% endif %}">Login</a>
                 {% endif %}
             {% endblock nav %}
@@ -32,6 +33,11 @@
     </header>
     <main>
         <div class="container">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
             {% block content %}
             {% endblock content %}
         </div>

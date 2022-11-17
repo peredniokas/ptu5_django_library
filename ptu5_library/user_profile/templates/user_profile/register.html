@@ -1,0 +1,24 @@
+{% extends 'library/base.html' %}
+{% block title %}Register {{ block.super }} account{% endblock title %}
+{% block content %}
+<h1>Register Library Account</h1>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="table-grid form-grid">
+        <div><label for="username">Username</label></div>
+        <div><input type="text" name="username" value="{{ request.POST.username }}"></div>
+        <div><label for="email">E-mail</label></div>
+        <div><input type="text" name="email" value="{{ request.POST.email }}"></div>
+        <div><label for="password">Password</label></div>
+        <div><input type="password" name="password"></div>
+        <div><label for="password2">Repeat Password</label></div>
+        <div><input type="password" name="password2"></div>
+        <div></div>
+        <div><button type="submit">Register</button></div>
+    </div>
+</form>
+
+<p>If you have an account already, you can <a href="{% url 'login' %}">log in</a>.</p>
+
+{% endblock content %}
